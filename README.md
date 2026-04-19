@@ -1,12 +1,30 @@
-# removebgvideo-python
+<p align="center">
+  <img src="https://removebgvideo.com/images/remove-bg-video-logo.png" alt="RemoveBGVideo" width="72" />
+</p>
 
-Official Python SDK for RemoveBGVideo Public API (`/v1`).
+<h1 align="center">removebgvideo-python</h1>
 
-- Website: https://removebgvideo.com
-- API Docs: https://removebgvideo.com/docs
-- API Page: https://removebgvideo.com/api
-- API Management: https://removebgvideo.com/api-management
-- GitHub: https://github.com/JsonChao/removebgvideo-python
+<p align="center">
+  Official Python SDK for RemoveBGVideo Public API (<code>/v1</code>)
+</p>
+
+<p align="center">
+  <a href="https://github.com/JsonChao/removebgvideo-python/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/JsonChao/removebgvideo-python/ci.yml?branch=main&label=CI" alt="CI" /></a>
+  <a href="https://github.com/JsonChao/removebgvideo-python/actions/workflows/release.yml"><img src="https://img.shields.io/github/actions/workflow/status/JsonChao/removebgvideo-python/release.yml?branch=main&label=Release" alt="Release" /></a>
+  <img src="https://img.shields.io/badge/python-3.9%2B-3776AB" alt="Python 3.9+" />
+  <img src="https://img.shields.io/badge/API-v1-7c3aed" alt="API v1" />
+  <img src="https://img.shields.io/badge/license-MIT-16a34a" alt="MIT License" />
+</p>
+
+<p align="center">
+  <a href="https://removebgvideo.com/docs"><strong>📘 Full Documentation</strong></a>
+  ·
+  <a href="https://removebgvideo.com/api"><strong>🧪 API Playground</strong></a>
+  ·
+  <a href="https://removebgvideo.com/api-management"><strong>🔐 API Management</strong></a>
+  ·
+  <a href="https://github.com/JsonChao/removebgvideo-python"><strong>🐙 GitHub</strong></a>
+</p>
 
 ## Why This SDK
 
