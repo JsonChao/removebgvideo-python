@@ -28,7 +28,7 @@ classifiers = [
 [project.urls]
 Homepage = "https://removebgvideo.com"
 Documentation = "https://removebgvideo.com/docs"
-Repository = "https://github.com/removebgvideo/removebgvideo-python"
+Repository = "https://github.com/JsonChao/removebgvideo-python"
 
 [tool.setuptools]
 packages = ["removebgvideo"]
