@@ -2,7 +2,7 @@
   <img src="https://removebgvideo.com/images/remove-bg-video-logo.png" alt="RemoveBGVideo" width="72" />
 </p>
 
-<h1 align="center">removebgvideo-python</h1>
+<h1 align="center">RemoveBGVideo Python SDK</h1>
 
 <p align="center">
   Official Python SDK for RemoveBGVideo Public API (<code>/v1</code>)
