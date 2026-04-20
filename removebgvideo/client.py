@@ -70,6 +70,7 @@ class RemoveBGVideoClient:
         bg_type: str = "green",
         output_format: str = "webm",
         text_prompt: Optional[str] = None,
+        webhook_url: Optional[str] = None,
         bg_color: Optional[list[float]] = None,
         auto_start: bool = True,
         metadata: Optional[Dict[str, Any]] = None,
@@ -83,6 +84,8 @@ class RemoveBGVideoClient:
         }
         if text_prompt:
             payload["text_prompt"] = text_prompt
+        if webhook_url:
+            payload["webhook_url"] = webhook_url
         if bg_color is not None:
             payload["bg_color"] = bg_color
         if metadata is not None:
@@ -96,10 +99,34 @@ class RemoveBGVideoClient:
         )
         return self._handle_response(resp)
 
-    def start_job(self, job_id: str) -> Dict[str, Any]:
+    def start_job(
+        self,
+        job_id: str,
+        model: Optional[str] = None,
+        output_format: Optional[str] = None,
+        bg_type: Optional[str] = None,
+        text_prompt: Optional[str] = None,
+        webhook_url: Optional[str] = None,
+        bg_color: Optional[list[float]] = None,
+    ) -> Dict[str, Any]:
+        payload: Dict[str, Any] = {}
+        if model:
+            payload["model"] = model
+        if output_format:
+            payload["output_format"] = output_format
+        if bg_type:
+            payload["bg_type"] = bg_type
+        if text_prompt:
+            payload["text_prompt"] = text_prompt
+        if webhook_url:
+            payload["webhook_url"] = webhook_url
+        if bg_color is not None:
+            payload["bg_color"] = bg_color
+
         resp = requests.post(
             f"{self.base_url}/v1/jobs/{job_id}/start",
-            headers={"X-Api-Key": self.api_key},
+            headers=self._headers(),
+            json=payload,
             timeout=self.timeout,
         )
         return self._handle_response(resp)

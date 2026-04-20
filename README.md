@@ -62,6 +62,7 @@ job = client.create_job(
     model="original",
     bg_type="transparent",
     output_format="webm",
+    webhook_url="https://your-app.com/webhooks/removebgvideo",
     auto_start=True,
 )
 
@@ -142,6 +143,14 @@ client.start_job(job["id"])
 done = client.wait_for_completion(job["id"])
 ```
 
+```python
+# start later with overrides
+client.start_job(
+    job["id"],
+    webhook_url="https://your-app.com/webhooks/removebgvideo",
+)
+```
+
 ## Model Selection Guide
 
 | Model | Speed | Quality | Best For | text_prompt |
@@ -160,6 +169,7 @@ done = client.wait_for_completion(job["id"])
 - `bg_type` (str, default `green`)
 - `output_format` (str, default `webm`)
 - `text_prompt` (str, optional, meaningful for `pro`)
+- `webhook_url` (str, optional, receive async callbacks)
 - `bg_color` (list[float], optional)
 - `auto_start` (bool, default `True`)
 - `metadata` (dict, optional)
@@ -176,12 +186,45 @@ RemoveBGVideoClient(api_key: str, base_url: str = "https://api.removebgvideo.com
 
 - `upload(file_path)` -> `POST /v1/uploads`
 - `create_job(...)` -> `POST /v1/jobs`
-- `start_job(job_id)` -> `POST /v1/jobs/{id}/start`
+- `start_job(job_id, ...)` -> `POST /v1/jobs/{id}/start`
 - `get_job(job_id)` -> `GET /v1/jobs/{id}`
 - `list_jobs(limit=20, offset=0, status=None)` -> `GET /v1/jobs`
 - `usage_summary(days=7)` -> `GET /v1/usage/summary`
 - `usage_events(limit=20)` -> `GET /v1/usage/events`
 - `wait_for_completion(job_id, interval_seconds=2.0, timeout_seconds=600)` -> polling helper
+
+## Webhooks
+
+To receive callbacks, pass `webhook_url` in `create_job(...)` or `start_job(...)`.
+
+Events:
+
+- `job.started`
+- `job.completed`
+- `job.failed`
+
+Headers:
+
+- `X-Webhook-Event`
+- `X-Webhook-Delivery-Id`
+- `X-Webhook-Timestamp`
+- `X-Webhook-Signature` (when signing secret is configured server-side)
+
+Python signature verification example:
+
+```python
+import hmac
+import hashlib
+
+def verify_webhook(raw_body: str, timestamp: str, signature: str, secret: str) -> bool:
+    digest = hmac.new(
+        secret.encode("utf-8"),
+        f"{timestamp}.{raw_body}".encode("utf-8"),
+        hashlib.sha256,
+    ).hexdigest()
+    expected = f"sha256={digest}"
+    return hmac.compare_digest(expected, signature or "")
+```
 
 ### Polling Behavior (`wait_for_completion`)
 
